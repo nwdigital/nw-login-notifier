@@ -54,8 +54,10 @@ function nwd_settings_init(  ) {
 function nwd_text_field_recipients_render(  ) {
 
 	$options = get_option( 'nwd_settings' );
+	$recipients = isset( $options['nwd_text_field_recipients'] ) ? $options['nwd_text_field_recipients'] : "";
+
 	?>
-	<input type='text' name='nwd_settings[nwd_text_field_recipients]' value='<?php echo $options['nwd_text_field_recipients']; ?>'>
+	<input type='text' name='nwd_settings[nwd_text_field_recipients]' value='<?php echo wp_strip_all_tags($recipients); ?>'>
 	<?php
 
 }
@@ -64,8 +66,9 @@ function nwd_text_field_recipients_render(  ) {
 function nwd_checkbox_include_site_admin_render(  ) {
 
 	$options = get_option( 'nwd_settings' );
+	$notify_admin = isset( $options['nwd_checkbox_include_site_admin'] ) ? $options['nwd_checkbox_include_site_admin'] : "";
 	?>
-	<input type='checkbox' name='nwd_settings[nwd_checkbox_include_site_admin]' <?php checked( $options['nwd_checkbox_include_site_admin'], 1 ); ?> value='1'>
+	<input type='checkbox' name='nwd_settings[nwd_checkbox_include_site_admin]' <?php checked( absint($notify_admin), 1 ); ?> value='1'>
 	<?php
 
 }

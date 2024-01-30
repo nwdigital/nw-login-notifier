@@ -38,8 +38,12 @@ function nwd_send_email_after_login( $user_login, $user ) {
     $email = $user_data->user_email;
 
     date_default_timezone_set("America/Chicago");
+    $datestamp = current_datetime();
     $time = date('m-d-Y');
     $time .= " at " . date('h:i:s A');
+
+    update_user_meta( $user->ID, "nwd_login_notify_last_login", $datestamp );
+
 
     // static mail stuff here
     $to = get_option('admin_email');
