@@ -21,7 +21,9 @@ function nwd_user_notifier_columns($columns) {
 //Adds Content To The Custom Added Column
 add_filter('manage_users_custom_column',  'nwd_login_notify_show_user_id_column_content', 10, 3);
 function nwd_login_notify_show_user_id_column_content($value, $column_name, $user_id) {
-    $last_login = get_user_meta( $user_id, "nwd_login_notify_last_login", true );
+	global $wpdb;
+	$nwd_last_login_option_name = $wpdb->get_blog_prefix() . "_nwd_login_notify_last_login"; // allows this to be site specific based on the database prefix
+    $last_login = get_user_option( $nwd_last_login_option_name, $user_id );
     $login_date = !empty( $last_login ) ? $last_login->format('Y-m-d g:i a') : "Never";
 	if ( 'nwd_login_notify_last_login' == $column_name )
 		return $login_date;
